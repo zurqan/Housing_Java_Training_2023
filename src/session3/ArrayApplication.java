@@ -112,6 +112,42 @@ public class ArrayApplication {
         System.out.println("Arrays.toString(matchesnames) = " + Arrays.toString(matchesnames));
 
 
+        int[][] matrix = new int[3][4];
+        int arrayVal =0;
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 4; col++) {
+                matrix[row][col]=arrayVal++;
+            }
+        }
+
+        for (int row = 0; row < matrix.length; row++) {
+            int[] rowArray = matrix[row];
+            System.out.println(Arrays.toString(rowArray));
+        }
+
+        int[][] anotherMatrix = new int[3][];
+        anotherMatrix[0] = new int[10];
+        anotherMatrix[1] = new int[3];
+        anotherMatrix[2
+                ] = new int[4];
+        System.out.println("=======");
+        for (int i1 = 0; i1 < anotherMatrix.length; i1++) {
+            System.out.println(Arrays.toString(anotherMatrix[i1]));
+        }
+
+        //
+
+        String[][] strMatrix = new String[3][4];
+
+        for (int row = 0; row < strMatrix.length; row++) {
+            for (int col = 0; col < strMatrix[row].length; col++) {
+                strMatrix[row][col]=String.format("(%d,%d)",row,col);
+            }
+        }
+
+        for (int row = 0; row < strMatrix.length; row++) {
+            System.out.println(Arrays.toString(strMatrix[row]));
+        }
 
     }
 
