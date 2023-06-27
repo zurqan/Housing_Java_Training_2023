@@ -1,6 +1,9 @@
 package session7;
 
 import java.util.Arrays;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class TrainingArrayList<T> implements TrainingList<T> {
 
@@ -22,6 +25,17 @@ public class TrainingArrayList<T> implements TrainingList<T> {
             tTrainingArrayList.add(e);
         }
         return tTrainingArrayList;
+    }
+
+    public TrainingList<T> filter(Predicate<T> check){
+        TrainingArrayList<T> filteredList= new TrainingArrayList<>();
+        for (int i = 0; i < size; i++) {
+            T elementByIndex = getElementByIndex(i);
+            if(check.test(elementByIndex)){
+                filteredList.add(elementByIndex);
+            }
+        }
+        return filteredList;
     }
 
     @Override
@@ -74,5 +88,23 @@ public class TrainingArrayList<T> implements TrainingList<T> {
         }
         str.append("]");
         return str.toString();
+    }
+
+    @Override
+    public <U> TrainingList<U> map(Function<T, U> mapper) {
+        TrainingArrayList<U> mappedArray = new TrainingArrayList<>();
+        for (int i = 0; i < size; i++) {
+            U uType = mapper.apply(getElementByIndex(i));
+            mappedArray.add(uType);
+        }
+
+        return mappedArray;
+    }
+
+    @Override
+    public void forEach(Consumer<T> consumer) {
+        for (int i = 0; i < size; i++) {
+            consumer.accept(getElementByIndex(i));
+        }
     }
 }
