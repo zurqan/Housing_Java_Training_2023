@@ -1,9 +1,10 @@
 package advance.session2;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.OptionalDouble;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.mapping;
+import static java.util.stream.Collectors.toList;
 
 public class StudentApplication {
 
@@ -15,7 +16,7 @@ public class StudentApplication {
                 new Student("Mosa", 70, "mosa@a.com", 25, "3"),
                 new Student("Jawad", 75, "jawad@a.com", 20, "4"),
                 new Student("Dima", 95, "dima@a.com", 20, "5"),
-                new Student("Mohammad Hamad", 85, "hamad@a.com", 27, "6")
+                new Student("Mohammad Hamad", 30, "hamad@a.com", 27, "6")
         };
 
         //1. Array of Names
@@ -59,6 +60,48 @@ public class StudentApplication {
                 .sorted(Comparator.comparing(Student::name))
                 .toArray(Student[]::new);
         System.out.println("Arrays.toString(stdsOrderedByName) = " + Arrays.toString(stdsOrderedByName));
+
+
+        List<Student> listOfStudents = Arrays.stream(stds)
+                .collect(toList());
+
+        List<Student> passStudents = Arrays.stream(stds)
+                .filter(st -> st.grade > 50)
+                .collect(toList());
+
+        Set<Student> setOfStudents = Arrays.stream(stds)
+                .collect(Collectors.toSet());
+
+        Integer[] n2={1,2,3,4,5,1,2,3};
+        Set<Integer> setOfNumbers = Arrays.stream(n2)
+                .collect(Collectors.toSet());
+
+        Map<Boolean, List<Student>> groupOfStudents = Arrays.stream(stds)
+                .collect(Collectors.groupingBy(st -> st.grade() >= 50));
+
+        System.out.println("groupOfStudents = " + groupOfStudents);
+
+        List<Student> passStudentsList = groupOfStudents.get(true);
+        System.out.println("passStudentsList = " + passStudentsList);
+        List<Student> notPassStudentsList = groupOfStudents.get(false);
+
+
+        System.out.println("setOfNumbers = " + setOfNumbers);
+
+
+        Map<Integer, List<Student>> grouping = Arrays.stream(stds)
+                .collect(Collectors.groupingBy(Student::age, toList()));
+
+        System.out.println("grouping = " + grouping);
+
+        Map<Integer, List<String>> stdNameByAge = Arrays.stream(stds)
+                .collect(
+                        Collectors.groupingBy(
+                                Student::age,//key
+                                mapping(Student::name, toList())));
+
+
+        System.out.println("stdNameByAge = " + stdNameByAge);
     }
 
     public static record Student(String name, double grade, String email, int age, String id) {
