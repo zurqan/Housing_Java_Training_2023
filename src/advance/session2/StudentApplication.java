@@ -102,6 +102,8 @@ public class StudentApplication {
 
 
         System.out.println("stdNameByAge = " + stdNameByAge);
+
+
     }
 
     public static record Student(String name, double grade, String email, int age, String id) {
